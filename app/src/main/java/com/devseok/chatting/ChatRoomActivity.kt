@@ -31,48 +31,8 @@ class ChatRoomActivity : AppCompatActivity() {
         val yourUid: String = intent.getStringExtra("yourUid")
         val name: String? = intent.getStringExtra("name")
 
-
         val adapter = GroupAdapter<GroupieViewHolder>()
 
-        /*adapter.add(ChatLeftYou())
-        adapter.add(ChatLeftYou())
-        adapter.add(ChatRightMe())
-        adapter.add(ChatLeftYou())
-        adapter.add(ChatRightMe())
-        adapter.add(ChatLeftYou())
-        adapter.add(ChatRightMe())
-        adapter.add(ChatLeftYou())
-        adapter.add(ChatRightMe())
-        adapter.add(ChatLeftYou())*/
-
-
-        val db : FirebaseFirestore = FirebaseFirestore.getInstance()
-
-
-        // 데이터 불러오기
-        /*db.collection("message")
-            .orderBy("time")
-            .get()
-            .addOnSuccessListener {result ->
-                for (document in result) {
-                    Log.d(TAG, document.toString())
-
-                    val senderId: Any? = document.get("myUid")
-                    val msg : String = document.get("message").toString()
-
-                    if (senderId!!.equals(myUid)) {
-                        adapter.add(ChatRightMe(msg))
-                    } else {
-                        adapter.add(ChatLeftYou(msg))
-                    }
-
-                    //만약 내가 보낸 메시지일 때
-
-                    //만약 내가 보낸 메시지가 아닐 때
-                }
-
-                recyclerView_chat.adapter  = adapter
-            }*/
 
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("message")
@@ -93,7 +53,7 @@ class ChatRoomActivity : AppCompatActivity() {
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                Log.d(TAG, "p0 : " + p0)
+                //Log.d(TAG, "p0 : " + p0)
 
                 val model : ChatNewModel? = p0.getValue(ChatNewModel::class.java)
 
@@ -136,20 +96,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
             editText.setText("")
 
-            /*val message = editText.text.toString()
 
-            editText.setText("")
-
-            val chat = ChatModel(myUid.toString(), yourUid.toString(), message, System.currentTimeMillis())
-
-            db.collection("message")
-                .add(chat)
-                .addOnSuccessListener {
-                    Log.d(TAG, "성공")
-                }
-                .addOnFailureListener {
-                    Log.d(TAG, "실패")
-                }*/
         }
 
     }
